@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nexora - Our Projects</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* Global Styles & Variables */
+        :root {
+            --primary: #FF5A5F; /* Bold, warm red */
+            --secondary: #1E293B; /* Dark slate */
+            --accent: #FFC947; /* A bright, energetic yellow */
+            --light-bg: #F8F9FB;
+            --dark-text: #1E293B;
+            --gray-text: #64748B;
+        }
+
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: var(--dark-text);
+            background-color: var(--light-bg);
+            line-height: 1.6;
+            overflow-x: hidden;
+            position: relative;
+        }
+        
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 9999;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 500 500' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='5' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.02'/%3E%3C/svg%3E");
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+        
+        /* Utility Classes */
+        .section-padding {
+            padding: 120px 0;
+        }
+        
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 16px 36px;
+            border-radius: 9999px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+            border: 2px solid transparent;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            position: relative;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+            box-shadow: 0 4px 20px rgba(255, 90, 95, 0.3);
+        }
+        
+        .btn-primary:hover {
+            background-color: #E64B50;
+            transform: translateY(-4px);
+            box-shadow: 0 8px 30px rgba(255, 90, 95, 0.4);
+        }
+        
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--secondary);
+            border-color: var(--secondary);
+            box-shadow: none;
+        }
+        
+        .btn-secondary:hover {
+            background-color: var(--secondary);
+            color: white;
+            transform: translateY(-4px);
+            box-shadow: 0 8px 30px rgba(30, 41, 59, 0.2);
+        }
+        
+        h1, h2, h3 {
+            font-family: 'Space Mono', monospace;
+            line-height: 1.1;
+            font-weight: 700;
+            letter-spacing: -0.05em;
+        }
+        
+        h1 { font-size: 4.5rem; }
+        h2 { font-size: 3rem; }
+        h3 { font-size: 2rem; }
+
+        .text-center { text-align: center; }
+
+        /* Animations */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 1s cubic-bezier(0.2, 0.8, 0.2, 1), transform 1s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            padding: 20px 0;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            transition: background-color 0.3s ease;
+        }
+
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-family: 'Space Mono', monospace;
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--secondary);
+            text-decoration: none;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 40px;
+        }
+        
+        .nav-links a {
+            text-decoration: none;
+            color: var(--secondary);
+            font-weight: 500;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.8rem;
+            cursor: pointer;
+            color: var(--dark-text);
+        }
+        
+        /* Projects Hero Section */
+        .projects-hero {
+            position: relative;
+            min-height: 60vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #FFF9F3 0%, #EFEFEF 100%);
+            padding-top: 100px;
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .projects-hero h1 {
+            font-size: 4rem;
+            max-width: 900px;
+            margin: 0 auto 20px;
+            color: var(--secondary);
+        }
+
+        .projects-hero p {
+            font-size: 1.3rem;
+            max-width: 800px;
+            margin: 0 auto;
+            color: var(--gray-text);
+        }
+
+        /* Project Grid */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 60px;
+            padding: 120px 0;
+        }
+
+        .project-card {
+            display: flex;
+            flex-direction: column;
+            background-color: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.4s ease;
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+        }
+        
+        .project-image-wrapper {
+            position: relative;
+            width: 100%;
+            padding-bottom: 60%;
+        }
+
+        .project-image-wrapper img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .project-content {
+            padding: 40px;
+        }
+
+        .project-content h3 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .project-content p {
+            color: var(--gray-text);
+            margin-bottom: 20px;
+        }
+
+        .project-content .project-tags {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-top: 15px;
+        }
+
+        .project-content .tag {
+            background-color: var(--primary);
+            color: white;
+            padding: 6px 16px;
+            font-size: 0.8rem;
+            font-weight: 500;
+            border-radius: 9999px;
+            text-transform: uppercase;
+        }
+
+        /* CTA Section */
+        .cta {
+            background-color: var(--secondary);
+            padding: 120px 0;
+            color: white;
+            text-align: center;
+        }
+        
+        .cta h2 {
+            font-size: 3rem;
+            color: white;
+            margin-bottom: 20px;
+        }
+        
+        .cta p {
+            max-width: 800px;
+            margin: 0 auto 40px;
+            font-size: 1.25rem;
+            opacity: 0.9;
+        }
+
+        .cta .btn-secondary {
+            color: white;
+            border-color: white;
+        }
+
+        .cta .btn-secondary:hover {
+            background-color: white;
+            color: var(--secondary);
+            transform: translateY(-4px);
+        }
+
+        /* Footer */
+        footer {
+            background-color: #121820;
+            color: #C8CFD7;
+            padding: 80px 0 40px;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1.5fr;
+            gap: 60px;
+            margin-bottom: 60px;
+        }
+
+        .footer-logo {
+            font-family: 'Space Mono', monospace;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+            margin-bottom: 20px;
+            display: block;
+        }
+        
+        .footer-column h3 {
+            margin-bottom: 25px;
+            color: white;
+            font-weight: 600;
+            font-size: 1.25rem;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 15px;
+        }
+        
+        .footer-links a {
+            color: #94A3B8;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+        }
+        
+        .copyright {
+            text-align: center;
+            padding-top: 40px;
+            border-top: 1px solid #334155;
+            color: #64748B;
+            font-size: 0.9rem;
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 1100px) {
+            h1 { font-size: 3.5rem; }
+            h2 { font-size: 2.5rem; }
+            
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            h1 { font-size: 2.5rem; }
+            h2 { font-size: 2rem; }
+            h3 { font-size: 1.5rem; }
+
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: rgba(255, 255, 255, 0.95);
+                backdrop-filter: blur(10px);
+                padding: 20px;
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.05);
+            }
+            
+            .nav-links.active {
+                display: flex;
+            }
+            
+            .nav-links li {
+                margin: 10px 0;
+            }
+
+            .nav-links a {
+                padding: 10px 0;
+            }
+            
+            .mobile-menu-btn {
+                display: block;
+            }
+        
+            .section-padding {
+                padding: 80px 0;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-container">
+            <a href="#" class="logo">NEXORA</a>
+            <button class="mobile-menu-btn">☰</button>
+            <ul class="nav-links">
+                <li><a href="#projects">Work</a></li>
+                <li><a href="#contact">Contact</a></li>
+                <li><a href="#" class="btn btn-primary">Start a Project</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <section class="projects-hero">
+        <div class="container reveal">
+            <h1>Our Work Speaks for Itself.</h1>
+            <p>From innovative startups to established enterprises, we partner with clients to create digital products that solve complex problems and drive real results.</p>
+        </div>
+    </section>
+
+    <section class="projects-grid" id="projects">
+        <div class="container">
+            <a href="#" class="project-card reveal" style="transition-delay: 0s;">
+                <div class="project-image-wrapper">
+                    <img src="https://images.unsplash.com/photo-1549692520-acc6669e2f0c?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Project management dashboard" loading="lazy">
+                </div>
+                <div class="project-content">
+                    <h3>Vertex Corp's Platform Redesign</h3>
+                    <p>A comprehensive redesign of a B2B SaaS platform focused on improving user flow and modernizing the interface. The result was a 40% increase in user engagement.</p>
+                    <div class="project-tags">
+                        <span class="tag">UX/UI Design</span>
+                        <span class="tag">SaaS</span>
+                        <span class="tag">Web App</span>
+                    </div>
+                </div>
+            </a>
+            
+            <a href="#" class="project-card reveal" style="transition-delay: 0.1s;">
+                <div class="project-image-wrapper">
+                    <img src="https://images.unsplash.com/photo-1620287340157-7977a4195150?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Mobile banking app UI" loading="lazy">
+                </div>
+                <div class="project-content">
+                    <h3>SwiftPay Mobile Banking App</h3>
+                    <p>We built a secure and intuitive mobile application for a fintech startup, making everyday banking simple and accessible for all users.</p>
+                    <div class="project-tags">
+                        <span class="tag">Mobile App</span>
+                        <span class="tag">Fintech</span>
+                        <span class="tag">iOS & Android</span>
+                    </div>
+                </div>
+            </a>
+
+            <a href="#" class="project-card reveal" style="transition-delay: 0.2s;">
+                <div class="project-image-wrapper">
+                    <img src="https://images.unsplash.com/photo-1544377193-33433a763c3f?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Digital marketing analytics dashboard" loading="lazy">
+                </div>
+                <div class="project-content">
+                    <h3>Innovate Inc. Brand Identity</h3>
+                    <p>Crafting a new visual identity and corporate website for a leading innovation firm, establishing them as a market leader with a modern, fresh look.</p>
+                    <div class="project-tags">
+                        <span class="tag">Branding</span>
+                        <span class="tag">Web Dev</span>
+                        <span class="tag">Content Strategy</span>
+                    </div>
+                </div>
+            </a>
+            
+            <a href="#" class="project-card reveal" style="transition-delay: 0.3s;">
+                <div class="project-image-wrapper">
+                    <img src="https://images.unsplash.com/photo-1582213075276-85750849303d?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="E-commerce store front" loading="lazy">
+                </div>
+                <div class="project-content">
+                    <h3>Zenith E-Commerce Store</h3>
+                    <p>Developed a high-performance e-commerce platform with a focus on seamless checkout experiences and intuitive product discovery.</p>
+                    <div class="project-tags">
+                        <span class="tag">E-Commerce</span>
+                        <span class="tag">UX/UI</span>
+                        <span class="tag">Shopify Plus</span>
+                    </div>
+                </div>
+            </a>
+
+        </div>
+    </section>
+
+    <section class="cta section-padding" id="contact">
+        <div class="container reveal">
+            <h2>Ready to Build Something Remarkable?</h2>
+            <p>Let's build a product that makes a difference. Tell us about your vision.</p>
+            <a href="#" class="btn btn-secondary">Let's Talk</a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column reveal" style="transition-delay: 0s;">
+                    <a href="#" class="footer-logo">NEXORA</a>
+                    <p style="max-width: 300px;">A digital creative partner focused on building products that resonate with people.</p>
+                </div>
+                <div class="footer-column reveal" style="transition-delay: 0.1s;">
+                    <h3>What We Do</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Strategy</a></li>
+                        <li><a href="#">Design</a></li>
+                        <li><a href="#">Engineering</a></li>
+                        <li><a href="#">Growth</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column reveal" style="transition-delay: 0.2s;">
+                    <h3>The Studio</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">Our Work</a></li>
+                        <li><a href="#">Our Team</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Blog</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column reveal" style="transition-delay: 0.3s;">
+                    <h3>Say Hello</h3>
+                    <ul class="footer-links">
+                        <li><a href="mailto:hello@nexora.com">hello@nexora.com</a></li>
+                        <li><a href="#">+1 (555) 123-4567</a></li>
+                        <li><a href="#">123 Technology Drive</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2025 Nexora. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        document.querySelector('.mobile-menu-btn').addEventListener('click', function() {
+            document.querySelector('.nav-links').classList.toggle('active');
+        });
+
+        // Intersection Observer for Animations
+        document.addEventListener('DOMContentLoaded', () => {
+            const observerOptions = {
+                root: null,
+                rootMargin: '0px',
+                threshold: 0.1
+            };
+
+            const revealObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+        });
+    </script>
+</body>
+</html>
