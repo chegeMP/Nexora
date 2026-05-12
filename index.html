@@ -1,820 +1,247 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nexora - Tech Solutions that Resonate</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <style>
-        /* Global Styles & Variables */
-        :root {
-            --primary: #FF5A5F; /* Bold, warm red */
-            --secondary: #1E293B; /* Dark slate */
-            --accent: #FFC947; /* A bright, energetic yellow */
-            --light-bg: #F8F9FB;
-            --dark-text: #1E293B;
-            --gray-text: #64748B;
-        }
-
-        *, *::before, *::after {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            color: var(--dark-text);
-            background-color: var(--light-bg);
-            line-height: 1.6;
-            overflow-x: hidden;
-            position: relative;
-        }
-        
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 9999;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 500 500' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='5' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.02'/%3E%3C/svg%3E");
-        }
-
-        .container {
-            width: 90%;
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-        
-        /* Utility Classes */
-        .section-padding {
-            padding: 120px 0;
-        }
-        
-        .btn {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            padding: 16px 36px;
-            border-radius: 9999px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
-            border: 2px solid transparent;
-            cursor: pointer;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            position: relative;
-        }
-        
-        .btn-primary {
-            background-color: var(--primary);
-            color: white;
-            box-shadow: 0 4px 20px rgba(255, 90, 95, 0.3);
-        }
-        
-        .btn-primary:hover {
-            background-color: #E64B50;
-            transform: translateY(-4px);
-            box-shadow: 0 8px 30px rgba(255, 90, 95, 0.4);
-        }
-        
-        .btn-secondary {
-            background-color: transparent;
-            color: var(--secondary);
-            border-color: var(--secondary);
-            box-shadow: none;
-        }
-        
-        .btn-secondary:hover {
-            background-color: var(--secondary);
-            color: white;
-            transform: translateY(-4px);
-            box-shadow: 0 8px 30px rgba(30, 41, 59, 0.2);
-        }
-        
-        h1, h2, h3 {
-            font-family: 'Space Mono', monospace;
-            line-height: 1.1;
-            font-weight: 700;
-            letter-spacing: -0.05em;
-        }
-        
-        h1 { font-size: 4.5rem; }
-        h2 { font-size: 3rem; }
-        h3 { font-size: 2rem; }
-
-        .text-center { text-align: center; }
-
-        /* Animations */
-        .reveal {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: opacity 1s cubic-bezier(0.2, 0.8, 0.2, 1), transform 1s cubic-bezier(0.2, 0.8, 0.2, 1);
-        }
-
-        .reveal.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* Header */
-        header {
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            padding: 20px 0;
-            background: rgba(255, 255, 255, 0.8);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            transition: background-color 0.3s ease;
-        }
-
-        .header-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .logo {
-            font-family: 'Space Mono', monospace;
-            font-size: 2.2rem;
-            font-weight: 700;
-            color: var(--secondary);
-            text-decoration: none;
-        }
-        
-        .nav-links {
-            display: flex;
-            list-style: none;
-            gap: 40px;
-        }
-        
-        .nav-links a {
-            text-decoration: none;
-            color: var(--secondary);
-            font-weight: 500;
-            position: relative;
-            transition: color 0.3s ease;
-        }
-
-        .nav-links a:hover {
-            color: var(--primary);
-        }
-
-        .mobile-menu-btn {
-            display: none;
-            background: none;
-            border: none;
-            font-size: 1.8rem;
-            cursor: pointer;
-            color: var(--dark-text);
-        }
-        
-        /* Hero Section */
-        .hero {
-            position: relative;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            background: linear-gradient(135deg, #FFF9F3 0%, #EFEFEF 100%);
-            padding-top: 100px;
-            overflow: hidden;
-        }
-        
-        .hero-content {
-            position: relative;
-            z-index: 2;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 80px;
-            align-items: center;
-        }
-        
-        .hero-text {
-            max-width: 600px;
-        }
-
-        .hero-text h1 {
-            color: var(--secondary);
-        }
-
-        .hero-text p {
-            font-size: 1.25rem;
-            color: var(--gray-text);
-            margin: 20px 0 40px;
-        }
-        
-        .hero-image-wrapper {
-            position: relative;
-            width: 100%;
-            padding-bottom: 65%;
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-        }
-        
-        .hero-image {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            object-position: center;
-            animation: image-float 6s ease-in-out infinite;
-        }
-
-        @keyframes image-float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-            100% { transform: translateY(0px); }
-        }
-
-        /* Client Logos Section */
-        .client-logos {
-            padding: 80px 0;
-            background-color: var(--light-bg);
-            border-top: 1px solid #E2E8F0;
-        }
-
-        .client-logos h2 {
-            font-size: 1.25rem;
-            font-weight: 500;
-            color: var(--gray-text);
-            margin-bottom: 40px;
-            text-align: center;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-
-        .logo-grid {
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 30px;
-        }
-
-        .logo-grid img {
-            max-width: 160px;
-            height: auto;
-            filter: grayscale(100%);
-            opacity: 0.6;
-            transition: all 0.3s ease;
-        }
-
-        .logo-grid img:hover {
-            filter: grayscale(0%);
-            opacity: 1;
-            transform: scale(1.05);
-        }
-
-        /* Services Section */
-        .services {
-            background-color: white;
-            padding: 120px 0;
-        }
-
-        .section-header {
-            text-align: center;
-            margin-bottom: 80px;
-        }
-
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 40px;
-        }
-
-        .service-card {
-            background-color: var(--light-bg);
-            border-radius: 16px;
-            padding: 40px;
-            border: 1px solid #E2E8F0;
-            transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.4s ease;
-            position: relative;
-            z-index: 2;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-        }
-        
-        .service-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-        }
-        
-        .service-card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 10px;
-            font-weight: 600;
-        }
-        
-        .service-card p {
-            color: var(--gray-text);
-        }
-        
-        .service-card .icon-wrapper {
-            width: 60px;
-            height: 60px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background-color: var(--primary);
-            border-radius: 12px;
-            margin-bottom: 25px;
-            box-shadow: 0 5px 15px rgba(255, 90, 95, 0.2);
-            transition: transform 0.3s ease;
-        }
-
-        .service-card:hover .icon-wrapper {
-            transform: rotate(5deg) scale(1.05);
-        }
-
-        .service-card .icon-wrapper svg {
-            color: white;
-            width: 32px;
-            height: 32px;
-        }
-
-        /* Featured Project Section - Asymmetrical and Layered */
-        .featured-project {
-            background-color: var(--light-bg);
-            padding: 120px 0;
-            position: relative;
-        }
-
-        .project-content {
-            display: grid;
-            grid-template-columns: 1fr 1.2fr;
-            gap: 60px;
-            align-items: center;
-            position: relative;
-        }
-
-        .project-image-wrapper {
-            position: relative;
-            z-index: 2;
-        }
-        
-        .project-image-wrapper img {
-            width: 100%;
-            height: auto;
-            border-radius: 16px;
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
-            transition: transform 0.4s ease;
-        }
-        
-        .project-image-wrapper:hover img {
-            transform: scale(1.02);
-        }
-
-        .project-image-wrapper::after {
-            content: '';
-            position: absolute;
-            top: -20px;
-            right: -20px;
-            width: 100%;
-            height: 100%;
-            background-color: var(--accent);
-            opacity: 0.15;
-            border-radius: 20px;
-            z-index: -1;
-            transform: rotate(2deg);
-        }
-
-        .project-text {
-            position: relative;
-            z-index: 3;
-            background-color: white;
-            padding: 40px;
-            border-radius: 16px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-        }
-
-        .project-text h2 {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-        }
-        
-        .project-text p {
-            margin-bottom: 25px;
-            color: var(--gray-text);
-        }
-        
-        /* Stats Section */
-        .stats {
-            padding: 120px 0;
-            background-color: white;
-            text-align: center;
-        }
-        
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 50px;
-            margin-top: 60px;
-        }
-        
-        .stat-item h3 {
-            font-size: 4rem;
-            color: var(--secondary);
-            font-weight: 700;
-        }
-        
-        .stat-item p {
-            color: var(--gray-text);
-            font-weight: 500;
-            font-size: 1.1rem;
-            margin-top: 5px;
-        }
-
-        /* CTA Section */
-        .cta {
-            background-color: var(--secondary);
-            padding: 120px 0;
-            color: white;
-            text-align: center;
-        }
-        
-        .cta h2 {
-            font-size: 3rem;
-            color: white;
-            margin-bottom: 20px;
-        }
-        
-        .cta p {
-            max-width: 800px;
-            margin: 0 auto 40px;
-            font-size: 1.25rem;
-            opacity: 0.9;
-        }
-
-        .cta .btn-secondary {
-            color: white;
-            border-color: white;
-        }
-
-        .cta .btn-secondary:hover {
-            background-color: white;
-            color: var(--secondary);
-            transform: translateY(-4px);
-        }
-
-        /* Footer */
-        footer {
-            background-color: #121820;
-            color: #C8CFD7;
-            padding: 80px 0 40px;
-        }
-        
-        .footer-content {
-            display: grid;
-            grid-template-columns: 2fr 1fr 1fr 1.5fr;
-            gap: 60px;
-            margin-bottom: 60px;
-        }
-
-        .footer-logo {
-            font-family: 'Space Mono', monospace;
-            font-size: 2rem;
-            font-weight: 700;
-            color: var(--primary);
-            text-decoration: none;
-            margin-bottom: 20px;
-            display: block;
-        }
-        
-        .footer-column h3 {
-            margin-bottom: 25px;
-            color: white;
-            font-weight: 600;
-            font-size: 1.25rem;
-        }
-        
-        .footer-links {
-            list-style: none;
-        }
-        
-        .footer-links li {
-            margin-bottom: 15px;
-        }
-        
-        .footer-links a {
-            color: #94A3B8;
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-        
-        .footer-links a:hover {
-            color: white;
-        }
-        
-        .copyright {
-            text-align: center;
-            padding-top: 40px;
-            border-top: 1px solid #334155;
-            color: #64748B;
-            font-size: 0.9rem;
-        }
-        
-        /* Responsive Design */
-        @media (max-width: 1100px) {
-            h1 { font-size: 3.5rem; }
-            h2 { font-size: 2.5rem; }
-            
-            .hero-content, .project-content {
-                grid-template-columns: 1fr;
-            }
-
-            .hero-text, .project-text {
-                max-width: none;
-            }
-
-            .hero-image-wrapper {
-                order: -1;
-                margin-bottom: 40px;
-            }
-        
-            .project-text {
-                padding: 30px;
-            }
-
-            .footer-content {
-                grid-template-columns: 1fr 1fr;
-            }
-        }
-        
-        @media (max-width: 768px) {
-            h1 { font-size: 2.5rem; }
-            h2 { font-size: 2rem; }
-            h3 { font-size: 1.5rem; }
-
-            .nav-links {
-                display: none;
-                flex-direction: column;
-                position: absolute;
-                top: 100%;
-                left: 0;
-                width: 100%;
-                background: rgba(255, 255, 255, 0.95);
-                backdrop-filter: blur(10px);
-                padding: 20px;
-                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.05);
-            }
-            
-            .nav-links.active {
-                display: flex;
-            }
-            
-            .nav-links li {
-                margin: 10px 0;
-            }
-
-            .nav-links a {
-                padding: 10px 0;
-            }
-            
-            .mobile-menu-btn {
-                display: block;
-            }
-        
-            .section-padding {
-                padding: 80px 0;
-            }
-
-            .footer-content {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nexora — Data Engineering &amp; Science</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700&family=Syne:wght@600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/nexora.css">
+  <link rel="icon" href="assets/nexora-favicon.svg" type="image/svg+xml">
 </head>
 <body>
-    <header>
-        <div class="container header-container">
-            <a href="#" class="logo">NEXORA</a>
-            <button class="mobile-menu-btn">☰</button>
-            <ul class="nav-links">
-                <li><a href="#services">Services</a></li>
-                <li><a href="#portfolio">Work</a></li>
-                <li><a href="#contact">Contact</a></li>
-                <li><a href="#" class="btn btn-primary">Start a Project</a></li>
-            </ul>
-        </div>
-    </header>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="logo" href="index.html" aria-label="Nexora — Data Engineering &amp; Science">
+        <img class="logo-lockup" src="assets/nexora-logo-lockup.svg" width="492" height="128" alt="Nexora — Data Engineering &amp; Science">
+      </a>
+      <button type="button" class="nav-toggle" data-nav-toggle aria-expanded="false" aria-label="Open menu">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16"/></svg>
+      </button>
+      <ul class="nav-links">
+        <li><a href="index.html#services">Services</a></li>
+        <li><a href="index.html#visualization">Visualization</a></li>
+        <li><a href="projects.html">Work</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="contactus.html">Contact</a></li>
+        <li><a class="btn btn-primary" href="contactus.html">Start a project</a></li>
+      </ul>
+    </div>
+  </header>
 
+  <main>
     <section class="hero">
-        <div class="container hero-content">
-            <div class="hero-text reveal">
-                <h1>Where Technology Meets Humanity.</h1>
-                <p>We're not just building software; we're crafting experiences that feel intuitive, elegant, and deeply human.</p>
-                <div class="hero-buttons">
-                    <a href="#services" class="btn btn-primary">See What We Do</a>
-                    <a href="#contact" class="btn btn-secondary">Get In Touch</a>
-                </div>
-            </div>
-            <div class="hero-image-wrapper reveal">
-                <img class="hero-image" src="https://images.unsplash.com/photo-1542744173-8e7e171b764b?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Abstract modern office space with a team collaborating" loading="lazy">
-            </div>
+      <div class="container hero-grid">
+        <div class="hero-copy reveal">
+          <p class="eyebrow">Data engineering &amp; science</p>
+          <h1>From raw data to <span class="gradient-text">clarity you can act on</span>.</h1>
+          <p>We build dependable pipelines, curated analytical models, and visualization surfaces so leaders and operators see the same truth — with lineage, quality, and performance built in.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#services">Explore capabilities</a>
+            <a class="btn btn-ghost" href="#visualization">See visualization</a>
+          </div>
         </div>
+        <div class="hero-visual reveal">
+          <div class="hero-frame">
+            <img src="https://images.unsplash.com/photo-1549692520-acc6669e2f0c?auto=format&fit=crop&w=1920&q=80" alt="Analytics workspace with charts and metrics on screen" width="800" height="600" loading="eager">
+          </div>
+          <div class="hero-badge">
+            <strong>Pipelines · models · dashboards</strong>
+            <span>Engineering rigor meets thoughtful visual storytelling.</span>
+          </div>
+        </div>
+      </div>
     </section>
 
-    <section class="client-logos">
-        <div class="container">
-            <h2 class="reveal">Trusted by Visionaries</h2>
-            <div class="logo-grid reveal">
-                <img src="https://via.placeholder.com/160x80.png?text=Innovate+Inc" alt="Innovate Inc logo" loading="lazy">
-                <img src="https://via.placeholder.com/160x80.png?text=Quantum+Solutions" alt="Quantum Solutions logo" loading="lazy">
-                <img src="https://via.placeholder.com/160x80.png?text=Arcade+Labs" alt="Arcade Labs logo" loading="lazy">
-                <img src="https://via.placeholder.com/160x80.png?text=Vertex+Corp" alt="Vertex Corp logo" loading="lazy">
-                <img src="https://via.placeholder.com/160x80.png?text=Fusion+Group" alt="Fusion Group logo" loading="lazy">
-            </div>
+    <section class="logo-strip" aria-labelledby="clients-heading">
+      <div class="container">
+        <h2 id="clients-heading">Teams scaling on trustworthy data</h2>
+        <div class="logo-row reveal">
+          <img src="https://placehold.co/140x32/f1f5f9/64748b/png?text=Innovate" alt="Innovate Inc" loading="lazy" width="140" height="32">
+          <img src="https://placehold.co/160x32/f1f5f9/64748b/png?text=Quantum" alt="Quantum Solutions" loading="lazy" width="160" height="32">
+          <img src="https://placehold.co/130x32/f1f5f9/64748b/png?text=Arcade" alt="Arcade Labs" loading="lazy" width="130" height="32">
+          <img src="https://placehold.co/140x32/f1f5f9/64748b/png?text=Vertex" alt="Vertex Corp" loading="lazy" width="140" height="32">
+          <img src="https://placehold.co/150x32/f1f5f9/64748b/png?text=Fusion" alt="Fusion Group" loading="lazy" width="150" height="32">
         </div>
+      </div>
     </section>
 
     <section class="services section-padding" id="services">
-        <div class="container">
-            <div class="section-header reveal">
-                <h2>Our Approach</h2>
-                <p style="max-width: 600px; margin: 0 auto; color: var(--gray-text);">We blend strategy, design, and engineering into a single, cohesive process. It's about more than just technology; it's about purpose.</p>
-            </div>
-            <div class="services-grid">
-                <div class="service-card reveal" style="transition-delay: 0s;">
-                    <div class="icon-wrapper">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 1 0 10 10A10 10 0 0 0 12 2Zm0 18a8 8 0 1 1 8-8A8 8 0 0 1 12 20Z"/><path d="M12 11.5a.5.5 0 0 1 .5.5v5a.5.5 0 0 1-.5.5h-1a.5.5 0 0 1-.5-.5v-5a.5.5 0 0 1 .5-.5h1Z"/><circle cx="12" cy="8" r="1.5"/></svg>
-                    </div>
-                    <h3>Strategy</h3>
-                    <p>We start with why. Our strategic process uncovers your true needs and sets a clear, actionable path forward.</p>
-                </div>
-                <div class="service-card reveal" style="transition-delay: 0.1s;">
-                    <div class="icon-wrapper">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M18 10a8 8 0 1 1-16 0 8 8 0 0 1 16 0ZM18 10a7 7 0 1 0-14 0 7 7 0 0 0 14 0Z"/><path d="M22 22a.999.999 0 0 1-.707-.293l-4-4a.999.999 0 0 1 1.414-1.414l4 4a.999.999 0 0 1-.707 1.707Z"/></svg>
-                    </div>
-                    <h3>Design</h3>
-                    <p>We obsess over every pixel, crafting an interface that is not just beautiful, but a joy to use.</p>
-                </div>
-                <div class="service-card reveal" style="transition-delay: 0.2s;">
-                    <div class="icon-wrapper">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M11 20H5a.998.998 0 0 1-1-1v-8a.998.998 0 0 1 1-1h6a.998.998 0 0 1 1 1v8a.998.998 0 0 1-1 1ZM19 20H13a.998.998 0 0 1-1-1v-4a.998.998 0 0 1 1-1h6a.998.998 0 0 1 1 1v4a.998.998 0 0 1-1 1ZM15 7.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-2ZM15 4.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-2Z"/></svg>
-                    </div>
-                    <h3>Engineering</h3>
-                    <p>Our code is a work of art—clean, scalable, and built to withstand the tests of time.</p>
-                </div>
-                <div class="service-card reveal" style="transition-delay: 0.3s;">
-                    <div class="icon-wrapper">
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2A10 10 0 1 0 22 12A10 10 0 0 0 12 2ZM12 20a8 8 0 1 1 8-8A8 8 0 0 1 12 20Z"/><path d="M12 4.5a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-2a.5.5 0 0 1 .5-.5h2ZM12 11.5a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-2a.5.5 0 0 1 .5-.5h2ZM12 18.5a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1-.5-.5v-2a.5.5 0 0 1 .5-.5h2Z"/></svg>
-                    </div>
-                    <h3>Growth</h3>
-                    <p>We don't just launch and leave. We analyze, iterate, and optimize to ensure lasting impact.</p>
-                </div>
-            </div>
+      <div class="container">
+        <div class="section-head reveal">
+          <p class="eyebrow">Capabilities</p>
+          <h2>Data platforms engineered for decisions.</h2>
+          <p class="lead">Ingestion through insight — we combine reliable data engineering with visualization craft so metrics are trusted, explainable, and embedded where teams already work.</p>
         </div>
+        <div class="cards-grid">
+          <article class="card reveal">
+            <div class="card-icon" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M4 6h16v2H4V6Zm0 5h16v2H4v-2Zm0 5h10v2H4v-2Zm12 0 4 3-4 3v-6Z"/></svg>
+            </div>
+            <h3>Data engineering</h3>
+            <p>Batch &amp; streaming pipelines, warehouses &amp; lakes, transformations, testing, and observability — so freshness, schema, and SLAs hold under real load.</p>
+          </article>
+          <article class="card reveal">
+            <div class="card-icon" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M3 13h2v8H3v-8Zm4-6h2v14H7V7Zm8 4h2v10h-2V11Zm-4 8h2v2h-2v-2Zm8-12h2v14h-2V3Z"/></svg>
+            </div>
+            <h3>Visualization &amp; analytics UX</h3>
+            <p>Executive dashboards, operational boards, and guided analytics — hierarchy, color, and interaction designed so signals surface before noise.</p>
+          </article>
+          <article class="card reveal">
+            <div class="card-icon" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a9 9 0 1 0 9 9h-2a7 7 0 1 1-7-7V2Zm3.5 3.5 1.5 3 3L22 13l-1.5 1.5-4.5-4.5V12a5 5 0 0 0-5 5H8a7 7 0 0 1 7-7V9l3.5-3.5Z"/></svg>
+            </div>
+            <h3>Science &amp; modeling</h3>
+            <p>Metric definitions, experiments, forecasting, and ML features grounded in governance — paired with clear narratives for stakeholders.</p>
+          </article>
+          <article class="card reveal">
+            <div class="card-icon" aria-hidden="true">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 1 3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4Zm0 10.99h7c-.53 4.12-3.28 7.79-7 8.94V12H5V6.3l7-3.11v8.8Z"/></svg>
+            </div>
+            <h3>Governance &amp; trust</h3>
+            <p>Lineage, access patterns, and quality checks wired into delivery — documentation and tooling that keep teams aligned on “one source of truth.”</p>
+          </article>
+        </div>
+      </div>
     </section>
 
-    <section class="featured-project section-padding" id="portfolio">
-        <div class="container project-content reveal">
-            <div class="project-image-wrapper">
-                <img src="https://images.unsplash.com/photo-1549692520-acc6669e2f0c?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Project management dashboard" loading="lazy">
-            </div>
-            <div class="project-text">
-                <h2>A New Identity for Vertex Corp</h2>
-                <p>We partnered with Vertex Corp to redefine their digital presence, focusing on a clean, user-centric platform that reflects their brand's innovation. Our work wasn't just about a new look; it was about building a more efficient and effective way for their clients to connect with them.</p>
-                <a href="#" class="btn btn-primary">Explore the Case Study</a>
-            </div>
+    <section class="viz-band section-padding" id="visualization">
+      <div class="container viz-band-inner">
+        <div class="viz-band-copy reveal">
+          <p class="eyebrow">Visualization</p>
+          <h2>Interfaces that make metrics <span class="gradient-text">legible</span> — and persuasive.</h2>
+          <p class="lead">We treat every dashboard as a product: audience-aware layouts, consistent semantics, and drill paths that respect how executives, analysts, and operators actually decide.</p>
+          <ul class="viz-points">
+            <li><strong>Executive clarity</strong> — KPI trees, variance storytelling, and board-ready views.</li>
+            <li><strong>Operational tempo</strong> — live or near-real-time surfaces with alerting tied to meaningful thresholds.</li>
+            <li><strong>Analyst leverage</strong> — self-serve layers, reusable chart grammars, and guardrails that scale.</li>
+          </ul>
         </div>
-    </section>
-    
-    <section class="stats section-padding text-center">
-        <div class="container reveal">
-            <h2 style="font-size: 2.2rem; color: var(--gray-text); font-weight: 500; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 20px;">Our Impact</h2>
-            <p style="max-width: 700px; margin: 0 auto 60px; font-size: 1.1rem;">We're proud of the work we do and the impact it has on our clients.</p>
-            <div class="stats-grid">
-                <div class="stat-item reveal" style="transition-delay: 0s;">
-                    <h3 class="stat-number" data-target="250">0</h3>
-                    <p>Completed Projects</p>
-                </div>
-                <div class="stat-item reveal" style="transition-delay: 0.1s;">
-                    <h3 class="stat-number" data-target="15">0</h3>
-                    <p>Years in the Industry</p>
-                </div>
-                <div class="stat-item reveal" style="transition-delay: 0.2s;">
-                    <h3 class="stat-number" data-target="99">0</h3>
-                    <p>Client Satisfaction (%)</p>
-                </div>
-                <div class="stat-item reveal" style="transition-delay: 0.3s;">
-                    <h3 class="stat-number" data-target="50">0</h3>
-                    <p>Core Team Members</p>
-                </div>
-            </div>
+        <div class="viz-chart-wrap reveal" aria-hidden="true">
+          <svg viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="vizBar" x1="0" y1="1" x2="0" y2="0">
+                <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.35"/>
+                <stop offset="100%" stop-color="#a78bfa" stop-opacity="0.95"/>
+              </linearGradient>
+              <linearGradient id="vizLine" x1="0" y1="0" x2="1" y2="0">
+                <stop offset="0%" stop-color="#22d3ee"/>
+                <stop offset="100%" stop-color="#38bdf8"/>
+              </linearGradient>
+            </defs>
+            <line x1="32" y1="168" x2="368" y2="168" stroke="#334155" stroke-width="1"/>
+            <line x1="32" y1="168" x2="32" y2="28" stroke="#334155" stroke-width="1"/>
+            <rect x="48" y="112" width="40" height="56" rx="4" fill="url(#vizBar)"/>
+            <rect x="104" y="88" width="40" height="80" rx="4" fill="url(#vizBar)" opacity="0.85"/>
+            <rect x="160" y="72" width="40" height="96" rx="4" fill="url(#vizBar)" opacity="0.95"/>
+            <rect x="216" y="96" width="40" height="72" rx="4" fill="url(#vizBar)" opacity="0.75"/>
+            <rect x="272" y="56" width="40" height="112" rx="4" fill="url(#vizBar)"/>
+            <path d="M 56 132 Q 120 60 200 100 T 344 72" fill="none" stroke="url(#vizLine)" stroke-width="2.5" stroke-linecap="round"/>
+            <circle cx="344" cy="72" r="5" fill="#fb923c" stroke="#0f172a" stroke-width="2"/>
+            <circle cx="160" cy="72" r="4" fill="#2dd4bf"/>
+          </svg>
+          <p class="viz-chart-caption">Illustrative — your stacks &amp; semantics drive the real views</p>
         </div>
-    </section>
-
-    <section class="cta section-padding" id="contact">
-        <div class="container reveal">
-            <h2>Ready to Build Something Remarkable?</h2>
-            <p>Let's build a product that makes a difference. Tell us about your vision.</p>
-            <a href="#" class="btn btn-secondary">Let's Talk</a>
-        </div>
+      </div>
     </section>
 
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-column reveal" style="transition-delay: 0s;">
-                    <a href="#" class="footer-logo">NEXORA</a>
-                    <p style="max-width: 300px;">A digital creative partner focused on building products that resonate with people.</p>
-                </div>
-                <div class="footer-column reveal" style="transition-delay: 0.1s;">
-                    <h3>What We Do</h3>
-                    <ul class="footer-links">
-                        <li><a href="#">Strategy</a></li>
-                        <li><a href="#">Design</a></li>
-                        <li><a href="#">Engineering</a></li>
-                        <li><a href="#">Growth</a></li>
-                    </ul>
-                </div>
-                <div class="footer-column reveal" style="transition-delay: 0.2s;">
-                    <h3>The Studio</h3>
-                    <ul class="footer-links">
-                        <li><a href="#">Our Work</a></li>
-                        <li><a href="#">Our Team</a></li>
-                        <li><a href="#">Careers</a></li>
-                        <li><a href="#">Blog</a></li>
-                    </ul>
-                </div>
-                <div class="footer-column reveal" style="transition-delay: 0.3s;">
-                    <h3>Say Hello</h3>
-                    <ul class="footer-links">
-                        <li><a href="mailto:hello@nexora.com">hello@nexora.com</a></li>
-                        <li><a href="#">+1 (555) 123-4567</a></li>
-                        <li><a href="#">123 Technology Drive</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="copyright">
-                <p>&copy; 2025 Nexora. All rights reserved.</p>
-            </div>
+    <section class="featured section-padding" id="portfolio">
+      <div class="container">
+        <div class="featured-inner reveal">
+          <div class="featured-media">
+            <img src="https://images.unsplash.com/photo-1549692520-acc6669e2f0c?auto=format&fit=crop&w=1920&q=80" alt="Dashboard interface preview" width="900" height="620" loading="lazy">
+          </div>
+          <div class="featured-panel">
+            <p class="eyebrow">Featured program</p>
+            <h2>Unified metrics layer for Vertex Corp</h2>
+            <p class="lead">We consolidated disparate sources into a governed warehouse, shipped semantic KPI definitions, and rolled out executive &amp; ops dashboards — cutting time-to-answer for revenue and funnel questions from days to minutes.</p>
+            <a class="btn btn-primary" href="projects.html">Explore data programs</a>
+          </div>
         </div>
-    </footer>
+      </div>
+    </section>
 
-    <script>
-        // Mobile menu toggle
-        document.querySelector('.mobile-menu-btn').addEventListener('click', function() {
-            document.querySelector('.nav-links').classList.toggle('active');
-        });
+    <section class="stats-section section-padding">
+      <div class="container">
+        <div class="section-head center reveal">
+          <p class="eyebrow">Impact</p>
+          <h2>Proof on production data.</h2>
+          <p class="lead">Outcomes from programs where engineering and visualization shipped together.</p>
+        </div>
+        <div class="stats-grid">
+          <div class="stat reveal">
+            <div class="stat-num" data-target="250">0</div>
+            <p class="stat-label">Data initiatives delivered</p>
+          </div>
+          <div class="stat reveal">
+            <div class="stat-num" data-target="15">0</div>
+            <p class="stat-label">Years in data &amp; analytics</p>
+          </div>
+          <div class="stat reveal">
+            <div class="stat-num" data-target="99" data-suffix="%">0</div>
+            <p class="stat-label">Stakeholders satisfied with clarity</p>
+          </div>
+          <div class="stat reveal">
+            <div class="stat-num" data-target="50">0</div>
+            <p class="stat-label">Engineers &amp; visualization leads</p>
+          </div>
+        </div>
+      </div>
+    </section>
 
-        // Intersection Observer for Animations and Stats
-        document.addEventListener('DOMContentLoaded', () => {
-            const observerOptions = {
-                root: null,
-                rootMargin: '0px',
-                threshold: 0.1
-            };
+    <section class="cta-band section-padding" id="contact">
+      <div class="container reveal">
+        <p class="eyebrow" style="color: rgba(125, 211, 252, 0.95);">Next step</p>
+        <h2>Ready to sharpen how your organization sees data?</h2>
+        <p class="lead">Share your sources, audiences, and decisions under pressure — we’ll sketch an engineering and visualization path that fits.</p>
+        <a class="btn btn-secondary-cta" href="contactus.html">Let’s talk</a>
+      </div>
+    </section>
+  </main>
 
-            const revealObserver = new IntersectionObserver((entries, observer) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                        observer.unobserve(entry.target);
-                    }
-                });
-            }, observerOptions);
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand reveal">
+          <a class="logo" href="index.html" aria-label="Nexora — Data Engineering &amp; Science">
+            <img class="logo-lockup logo-lockup--footer" src="assets/nexora-logo-lockup.svg" width="492" height="128" alt="Nexora — Data Engineering &amp; Science">
+          </a>
+          <p>Data engineering, analytics science, and visualization — built so teams trust what they see on the screen.</p>
+        </div>
+        <div class="footer-col reveal">
+          <h3>Capabilities</h3>
+          <ul class="footer-links">
+            <li><a href="index.html#services">Data engineering</a></li>
+            <li><a href="index.html#visualization">Visualization</a></li>
+            <li><a href="index.html#services">Science &amp; modeling</a></li>
+            <li><a href="index.html#services">Governance</a></li>
+          </ul>
+        </div>
+        <div class="footer-col reveal">
+          <h3>Studio</h3>
+          <ul class="footer-links">
+            <li><a href="projects.html">Work</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contactus.html">Careers</a></li>
+            <li><a href="contactus.html">Contact</a></li>
+            <li><a href="https://github.com/chegeMP/Nexora" target="_blank" rel="noopener noreferrer">GitHub</a></li>
+          </ul>
+        </div>
+        <div class="footer-col reveal">
+          <h3>Hello</h3>
+          <ul class="footer-links">
+            <li><a href="mailto:codecraftkenya@gmail.com">codecraftkenya@gmail.com</a></li>
+            <li><a href="tel:+254747280758">(+254)747-280-758</a></li>
+            <li><span>Mapera Court, Langata Road, Nairobi, Kenya</span></li>
+          </ul>
+        </div>
+      </div>
+      <p class="copyright">&copy; 2026 Nexora. All rights reserved.</p>
+    </div>
+  </footer>
 
-            const statObserver = new IntersectionObserver((entries, observer) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        const target = +entry.target.getAttribute('data-target');
-                        const speed = 200;
-                        let count = 0;
-                        const updateCount = () => {
-                            const increment = target / speed;
-                            if (count < target) {
-                                count += increment;
-                                entry.target.innerText = Math.ceil(count);
-                                requestAnimationFrame(updateCount);
-                            } else {
-                                entry.target.innerText = target;
-                            }
-                        };
-                        updateCount();
-                        observer.unobserve(entry.target);
-                    }
-                });
-            }, { ...observerOptions, threshold: 0.5 });
-
-            document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
-            document.querySelectorAll('.stat-number').forEach(el => statObserver.observe(el));
-        });
-    </script>
+  <script src="js/nexora.js" defer></script>
 </body>
 </html>

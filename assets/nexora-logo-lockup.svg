@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="64 114 492 128" fill="none" role="img" aria-labelledby="logoTitle" preserveAspectRatio="xMinYMid meet">
+  <title id="logoTitle">Nexora — Data Engineering &amp; Science</title>
+  <desc>Nexora brand logo with geometric data-inspired icon and wordmark</desc>
+
+  <!-- Icon mark: interconnected nodes -->
+  <circle cx="108" cy="148" r="13" fill="#1D9E75"/>
+  <circle cx="76" cy="210" r="9" fill="#178BCA"/>
+  <circle cx="148" cy="210" r="9" fill="#534AB7"/>
+  <circle cx="112" cy="200" r="5" fill="#EF9F27" opacity="0.9"/>
+
+  <line x1="108" y1="161" x2="79" y2="203" stroke="#1D9E75" stroke-width="2" stroke-linecap="round" opacity="0.7"/>
+  <line x1="108" y1="161" x2="145" y2="203" stroke="#534AB7" stroke-width="2" stroke-linecap="round" opacity="0.7"/>
+  <line x1="85" y1="210" x2="139" y2="210" stroke="#178BCA" stroke-width="1.5" stroke-linecap="round" opacity="0.6"/>
+  <line x1="108" y1="161" x2="112" y2="196" stroke="#EF9F27" stroke-width="1" stroke-linecap="round" opacity="0.8"/>
+
+  <polygon points="112,122 144,140 144,176 112,194 80,176 80,140" fill="none" stroke="#1D9E75" stroke-width="1" opacity="0.18"/>
+
+  <text x="180" y="206" fill="#faf9f5" font-family="Syne, ui-sans-serif, system-ui, sans-serif" font-size="52" font-weight="500">nexora</text>
+
+  <text x="182" y="232" fill="#c2c0b6" font-family="'DM Sans', ui-sans-serif, system-ui, sans-serif" font-size="13" font-weight="400">DATA ENGINEERING &amp; SCIENCE</text>
+
+  <rect x="76" y="228" width="76" height="2.5" rx="1.5" fill="#1D9E75" opacity="0.5"/>
+</svg>
